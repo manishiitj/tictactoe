@@ -21,6 +21,12 @@ public class Util {
             pair2 = winnerConfig[i][1];
             pair3 = winnerConfig[i][2];
 
+            System.out.println("type: " + type);
+
+            System.out.println("pair1: " + board[pair1.getX()][pair1.getY()].getC());
+            System.out.println("pair2: " + board[pair2.getX()][pair2.getY()].getC());
+            System.out.println("pair3: " + board[pair3.getX()][pair3.getY()].getC());
+
             if(board[pair1.getX()][pair1.getY()].getC() == type && board[pair2.getX()][pair2.getY()].getC() == type && board[pair3.getX()][pair3.getY()].getC() == type ){
                 return true;
             }

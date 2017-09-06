@@ -37,8 +37,12 @@ public class TicTacToeApp extends Application {
 
         if(Util.getFirstPlayer(player1, player2).equals(player1)){
             player1.setFirstPlayer(true);
+            player1.setPlayerType('X');
+            player2.setPlayerType('O');
         }else{
             player2.setFirstPlayer(true);
+            player1.setPlayerType('O');
+            player2.setPlayerType('X');
         }
         initializeWinnerConfig();
 
@@ -96,44 +100,43 @@ public class TicTacToeApp extends Application {
 
 
         int x =0 ,y = 0;
-        char c = ' ';
         int chanceCount = 0;
         while(true){
             try {
                 x = Integer.parseInt(br.readLine());
                 y = Integer.parseInt(br.readLine());
-                c = br.readLine().charAt(0);
-                System.out.println("Inputs are:x: " + x +" y: " + y + " c: " +c);
+                System.out.println("Inputs are:x: " + x +" y: " + y );
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
             if(player1.isFirstPlayer()){
                 if(chanceCount%2 == 0){
-                    player1.makeAMove(board, player1.getPlayerType(), new Cell(x,y,c));
+                    player1.makeAMove(board, player1.getPlayerType(), new Cell(x,y,player1.getPlayerType()));
                 }else{
-                    player2.makeAMove(board, player2.getPlayerType(), new Cell(x,y,c));
+                    player2.makeAMove(board, player2.getPlayerType(), new Cell(x,y,player2.getPlayerType()));
                 }
             }else{
                 if(chanceCount %2 == 0){
-                    player2.makeAMove(board, player2.getPlayerType(), new Cell(x,y,c));
+                    player2.makeAMove(board, player2.getPlayerType(), new Cell(x,y,player2.getPlayerType()));
                 }else{
-                    player1.makeAMove(board, player1.getPlayerType(), new Cell(x,y,c));
+                    player1.makeAMove(board, player1.getPlayerType(), new Cell(x,y,player1.getPlayerType()));
                 }
 
             }
 
             board.printBoard();
             chanceCount++;
-
-            if(Util.isWinner(player1.getPlayerType(), board, winnerConfig)){
-                Util.announeWinner(player1.getPlayerType());
-                break;
-            }else if(Util.isWinner(player2.getPlayerType(), board, winnerConfig)){
-                Util.announeWinner(player2.getPlayerType());
-                break;
-            }else{
-                continue;
+            if(chanceCount >4) {
+                if (Util.isWinner(player1.getPlayerType(), board, winnerConfig)) {
+                    Util.announeWinner(player1.getPlayerType());
+                    break;
+                } else if (Util.isWinner(player2.getPlayerType(), board, winnerConfig)) {
+                    Util.announeWinner(player2.getPlayerType());
+                    break;
+                } else {
+                    continue;
+                }
             }
 
         }
